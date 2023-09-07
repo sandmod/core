@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Sandmod Core" height="300px" src="https://avatars.githubusercontent.com/u/142268940">
+  <img alt="Sandmod Core" height="300px" src="https://files.facepunch.com/sbox/asset/sandmod.core/logo.b58eb6ab.png">
 </div>
 
 ![Discord](https://img.shields.io/discord/1018463122144636980?style=for-the-badge&label=Discord&color=3273EB)
