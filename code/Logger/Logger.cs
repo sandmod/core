@@ -5,5 +5,7 @@
 /// </summary>
 public class SandmodLogger : Sandbox.Diagnostics.Logger
 {
-    public SandmodLogger(string module) : base($"Sandmod/{module}") {}
+    public SandmodLogger(string module) : base($"Sandmod/{module}")
+    {
+    }
 }

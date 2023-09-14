@@ -20,9 +20,9 @@ public static class ProviderFactory
         var typeName = typeof(T).Name;
         var log = new SandmodLogger($"Provider/{typeof(T).Name}");
         log.Info($"Providing instances for {typeName} ...");
-        
+
         var types = TypeLibrary.GetTypes<T>().ToList();
-        
+
         // Check for none default provides
         var provideTypes = types.Where(type => type.HasAttribute<ProviderAttribute>()).ToList();
         if (provideTypes.Any())
@@ -30,21 +30,26 @@ public static class ProviderFactory
             log.Info($"Providing {provideTypes.Count} instance(s)");
             return provideTypes.Select(type => TypeLibrary.Create<T>(type.TargetType)).ToList();
         }
+
         types = types.Except(provideTypes).ToList();
 
         // Check for default provides
-        var defaultTypes = types.Select(type => new KeyValuePair<TypeDescription, DefaultProviderAttribute>(type, TypeLibrary.GetAttribute<DefaultProviderAttribute>(type.TargetType))).Where(pair => pair.Value != null).GroupBy(pair => pair.Value.Priority).OrderBy(group => group.Key).ToList();
+        var defaultTypes = types
+            .Select(type => new KeyValuePair<TypeDescription, DefaultProviderAttribute>(type,
+                TypeLibrary.GetAttribute<DefaultProviderAttribute>(type.TargetType))).Where(pair => pair.Value != null)
+            .GroupBy(pair => pair.Value.Priority).OrderBy(group => group.Key).ToList();
         if (defaultTypes.Any())
         {
             var defaultPriority = defaultTypes.First();
             if (defaultPriority.Count() > 1)
             {
-                log.Warning($"Multiple default types found for the highest priority, using the first found: {string.Join(", ", defaultPriority.Select(pair => pair.Key.FullName))}");
+                log.Warning(
+                    $"Multiple default types found for the highest priority, using the first found: {string.Join(", ", defaultPriority.Select(pair => pair.Key.FullName))}");
             }
 
             var defaultType = defaultPriority.First();
             log.Info($"Providing default type: {defaultType.Key.FullName}");
-            return new List<T> { TypeLibrary.Create<T>(defaultType.Key.TargetType) };
+            return new List<T> {TypeLibrary.Create<T>(defaultType.Key.TargetType)};
         }
 
         // Should not be reachable, unless not used properly

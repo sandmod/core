@@ -13,8 +13,9 @@ public static class InterfaceUtil
     /// <typeparam name="TComponent">The component type</typeparam>
     /// <typeparam name="TInterface">The implemented interface</typeparam>
     /// <returns>The component as the <b><typeparamref name="TInterface"/></b></returns>
-    public static TInterface GetComponentInterface<TComponent, TInterface>(this IEntity self) where TComponent : IComponent where TInterface : class
+    public static TInterface GetComponentInterface<TComponent, TInterface>(this IEntity self)
+        where TComponent : IComponent where TInterface : class
     {
         return self.Components.GetAll<TComponent>().FirstOrDefault(component => component is TInterface) as TInterface;
-    } 
+    }
 }

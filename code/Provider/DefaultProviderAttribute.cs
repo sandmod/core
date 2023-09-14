@@ -10,9 +10,11 @@ namespace Sandmod.Core.Provider;
 public class DefaultProviderAttribute : Attribute
 {
     public ProviderPriority Priority { get; } = ProviderPriority.Medium;
-    
-    public DefaultProviderAttribute() {}
-    
+
+    public DefaultProviderAttribute()
+    {
+    }
+
     public DefaultProviderAttribute(ProviderPriority priority)
     {
         Priority = priority;
