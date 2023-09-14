@@ -9,7 +9,7 @@
 > Core library
 
 > Sandmod provides all kinds of frameworks for developers.  
-> This way we can all have on a shared experience where addon incompatibility is no issue anymore.
+> This way we can all have a shared experience where addon incompatibility is no issue anymore.
 
 Sandmod core is the core library of Sandmod. `You probably already guessed that :)`
 
