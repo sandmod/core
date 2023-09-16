@@ -37,8 +37,11 @@ public static class ProviderFactory
         // Check for default provides
         var defaultTypes = types
             .Select(type => new KeyValuePair<TypeDescription, DefaultProviderAttribute>(type,
-                TypeLibrary.GetAttribute<DefaultProviderAttribute>(type.TargetType))).Where(pair => pair.Value != null)
-            .GroupBy(pair => pair.Value.Priority).OrderByDescending(group => group.Key).ToList();
+                TypeLibrary.GetAttribute<DefaultProviderAttribute>(type.TargetType)))
+            .Where(pair => pair.Value != null)
+            .GroupBy(pair => pair.Value.Priority)
+            .OrderByDescending(group => group.Key)
+            .ToList();
         if (defaultTypes.Any())
         {
             var defaultPriority = defaultTypes.First();
