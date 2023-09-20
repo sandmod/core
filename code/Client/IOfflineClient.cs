@@ -1,4 +1,5 @@
-﻿using Sandbox.Internal;
+﻿using Sandbox;
+using Sandbox.Internal;
 
 namespace Sandmod.Core.Client;
 

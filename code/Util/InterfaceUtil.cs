@@ -2,7 +2,7 @@
 using System.Linq;
 using Sandbox;
 
-namespace Sandmod.Core.Interface;
+namespace Sandmod.Core.Util;
 
 public static class InterfaceUtil
 {
