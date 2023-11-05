@@ -16,7 +16,7 @@ public static class ProviderFactory
     /// </summary>
     /// <typeparam name="T">The type to provide</typeparam>
     /// <returns>the created instances</returns>
-    public static IReadOnlyList<T> Provide<T>() where T : class
+    public static IReadOnlyCollection<T> Provide<T>() where T : class
     {
         var log = CreateLogger<T>();
         var typeName = typeof(T).Name;

@@ -28,22 +28,22 @@ public class WrappedComponentSystem<TComponent> : IComponentSystem<TComponent> w
         return ComponentSystem.Add(component);
     }
 
-    public T Get<T>(bool includeDisabled = false) where T : TComponent
+    public T Get<T>(bool includeDisabled = false) where T : class, TComponent
     {
         return ComponentSystem.Get<T>(includeDisabled);
     }
 
-    public bool TryGet<T>(out T component, bool includeDisabled = false) where T : TComponent
+    public bool TryGet<T>(out T component, bool includeDisabled = false) where T : class, TComponent
     {
         return ComponentSystem.TryGet(out component, includeDisabled);
     }
 
-    public T Create<T>(bool startEnabled = true) where T : TComponent, new()
+    public T Create<T>(bool startEnabled = true) where T : class, TComponent, new()
     {
         return ComponentSystem.Create<T>(startEnabled);
     }
 
-    public T GetOrCreate<T>(bool startEnabled = true) where T : TComponent, new()
+    public T GetOrCreate<T>(bool startEnabled = true) where T : class, TComponent, new()
     {
         return ComponentSystem.GetOrCreate<T>(startEnabled);
     }
@@ -58,7 +58,7 @@ public class WrappedComponentSystem<TComponent> : IComponentSystem<TComponent> w
         return ComponentSystem.RemoveAny<T>();
     }
 
-    public IEnumerable<T> GetAll<T>(bool includeDisabled = false) where T : TComponent
+    public IEnumerable<T> GetAll<T>(bool includeDisabled = false) where T : class, TComponent
     {
         return ComponentSystem.GetAll<T>(includeDisabled);
     }

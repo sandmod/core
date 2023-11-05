@@ -10,12 +10,33 @@ namespace Sandmod.Core.Components;
 /// <br/><br/>
 /// Work in progress, use at own risk as this might change drastically.
 /// </summary>
-public interface IComponentSystem<in TComponent> where TComponent : IComponent
+public interface IComponentSystem<in TComponent>
 {
     /// <summary>
-    /// Remove given component from this system.
+    /// Create the component.
     /// </summary>
-    bool Remove(TComponent component);
+    T Create<T>(bool startEnabled = true) where T : class, TComponent, new();
+
+    /// <summary>
+    /// Get the component, create if it doesn't exist.
+    /// Will include disabled components in search.
+    /// </summary>
+    T GetOrCreate<T>(bool startEnabled = true) where T : class, TComponent, new();
+
+    /// <summary>
+    /// Get a component by type, if it exists.
+    /// </summary>
+    T Get<T>(bool includeDisabled = false) where T : class, TComponent;
+
+    /// <summary>
+    /// Returns true if component was found, else false,
+    /// </summary>
+    bool TryGet<T>(out T component, bool includeDisabled = false) where T : class, TComponent;
+
+    /// <summary>
+    /// Get all components by type, if any exist
+    /// </summary>
+    IEnumerable<T> GetAll<T>(bool includeDisabled = false) where T : class, TComponent;
 
     /// <summary>
     /// Add component to this system.
@@ -23,25 +44,9 @@ public interface IComponentSystem<in TComponent> where TComponent : IComponent
     bool Add(TComponent component);
 
     /// <summary>
-    /// Get a component by type, if it exists.
+    /// Remove given component from this system.
     /// </summary>
-    T Get<T>(bool includeDisabled = false) where T : TComponent;
-
-    /// <summary>
-    /// Returns true if component was found, else false,
-    /// </summary>
-    bool TryGet<T>(out T component, bool includeDisabled = false) where T : TComponent;
-
-    /// <summary>
-    /// Create the component.
-    /// </summary>
-    T Create<T>(bool startEnabled = true) where T : TComponent, new();
-
-    /// <summary>
-    /// Get the component, create if it doesn't exist.
-    /// Will include disabled components in search.
-    /// </summary>
-    T GetOrCreate<T>(bool startEnabled = true) where T : TComponent, new();
+    bool Remove(TComponent component);
 
     /// <summary>
     /// Remove all components of given type.
@@ -52,11 +57,6 @@ public interface IComponentSystem<in TComponent> where TComponent : IComponent
     /// Remove all components of given type
     /// </summary>
     bool RemoveAny<T>() where T : TComponent;
-
-    /// <summary>
-    /// Get all components by type, if any exist
-    /// </summary>
-    IEnumerable<T> GetAll<T>(bool includeDisabled = false) where T : TComponent;
 
     /// <summary>
     /// Remove all components to this entity
